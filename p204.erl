@@ -1,29 +1,38 @@
-% Too slow
-
--module(p204_2).
+-module(p204).
 -export([count_primes/1]).
 
 -spec count_primes(N :: integer()) -> integer().
 
-count_primes(N) -> count_primes(N, queue:from_list([2]), 1, 2).
-count_primes(N, KnownPrimes, PrimeCount, LargestPrime) ->
-    case LargestPrime >= N of
-       true  -> PrimeCount - 1;
+count_primes(N) -> count_primes(N, primes_new()).
+count_primes(N, KnownPrimes) ->
+    case primes_largest(KnownPrimes) >= N of
+       true  -> primes_length(KnownPrimes) - 1;
        false ->
-            {NewLargestPrime, NewPrimes} = add_prime(KnownPrimes, LargestPrime + 1),
-            count_primes(N, NewPrimes, PrimeCount+1, NewLargestPrime)
+            NewPrimes = find_next_prime(KnownPrimes, primes_largest(KnownPrimes) + 1),
+            count_primes(N, NewPrimes)
     end.
 
-add_prime(KnownPrimes, N) ->
+find_next_prime(KnownPrimes, N) ->
     case is_prime(N, KnownPrimes) of
-        true  -> {N, queue:in(N, KnownPrimes)};
-        false -> add_prime(KnownPrimes, N+1)
+        {true,  NewPrimes} -> primes_add(NewPrimes, N);
+        {false, NewPrimes} -> find_next_prime(NewPrimes, N+1)
     end.
 
-is_prime(N, PrimeQueue) ->
-    {{value,Prime}, RemainingPrimes} = queue:out(PrimeQueue),
+is_prime(N, KnownPrimes) -> is_prime(N, KnownPrimes, KnownPrimes).
+is_prime(N, KnownPrimes={[], _}, _) ->
+    NewPrimes = primes_cache(KnownPrimes),
+    is_prime(N, NewPrimes, NewPrimes);
+is_prime(N, {Forwards,Backwards}, FullPrimes) ->
+    [Prime|RemainingPrimes] = Forwards,
     case {N<Prime*Prime, N rem Prime} of
-        {true,_} -> true;
-        {_, 0}   -> false;
-        {_, _}   -> is_prime(N, RemainingPrimes)
+        {true,_} -> {true, FullPrimes};
+        {_, 0}   -> {false, FullPrimes};
+        {_, _}   -> is_prime(N, {RemainingPrimes,Backwards}, FullPrimes)
     end.
+
+
+primes_new()                    -> {[2],[2]}.
+primes_largest({_,[Largest|_]}) -> Largest.
+primes_length({_,Backwards})    -> length(Backwards).
+primes_add({Forwards,Backwards},N) -> {Forwards, [N|Backwards]}.
+primes_cache({_,Backwards})     -> {lists:reverse(Backwards), Backwards}.
