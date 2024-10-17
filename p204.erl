@@ -12,27 +12,27 @@ count_primes(N, KnownPrimes) ->
             count_primes(N, NewPrimes)
     end.
 
-find_next_prime(KnownPrimes, N) ->
-    case is_prime(N, KnownPrimes) of
-        {true,  NewPrimes} -> primes_add(NewPrimes, N);
-        {false, NewPrimes} -> find_next_prime(NewPrimes, N+1)
+find_next_prime(KnownPrimes, Start) ->
+    case is_prime(Start, KnownPrimes) of
+        {true,  NewPrimes} -> primes_add(NewPrimes, Start);
+        {false, NewPrimes} -> find_next_prime(NewPrimes, Start+1)
     end.
 
-is_prime(N, KnownPrimes) -> is_prime(N, KnownPrimes, KnownPrimes).
-is_prime(N, KnownPrimes={[], _}, _) ->
+is_prime(K, KnownPrimes) -> is_prime(K, KnownPrimes, KnownPrimes).
+is_prime(K, KnownPrimes={[], _}, _) ->
     NewPrimes = primes_cache(KnownPrimes),
-    is_prime(N, NewPrimes, NewPrimes);
-is_prime(N, {Forwards,Backwards}, FullPrimes) ->
-    [Prime|RemainingPrimes] = Forwards,
-    case {N<Prime*Prime, N rem Prime} of
+    is_prime(K, NewPrimes, NewPrimes);
+is_prime(K, {Ascending,Descending}, FullPrimes) ->
+    [Prime|RemainingPrimes] = Ascending,
+    case {K<Prime*Prime, K rem Prime} of
         {true,_} -> {true, FullPrimes};
         {_, 0}   -> {false, FullPrimes};
-        {_, _}   -> is_prime(N, {RemainingPrimes,Backwards}, FullPrimes)
+        {_, _}   -> is_prime(K, {RemainingPrimes,Descending}, FullPrimes)
     end.
 
 
 primes_new()                    -> {[2],[2]}.
 primes_largest({_,[Largest|_]}) -> Largest.
-primes_length({_,Backwards})    -> length(Backwards).
-primes_add({Forwards,Backwards},N) -> {Forwards, [N|Backwards]}.
-primes_cache({_,Backwards})     -> {lists:reverse(Backwards), Backwards}.
+primes_length({_,Descending})    -> length(Descending).
+primes_add({Ascending,Descending},N) -> {Ascending, [N|Descending]}.
+primes_cache({_,Descending})     -> {lists:reverse(Descending), Descending}.
