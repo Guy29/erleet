@@ -1,4 +1,4 @@
--module(p6).
+-module(p0006).
 -export([convert/2]).
 
 -spec convert(S :: unicode:unicode_binary(), NumRows :: integer()) -> unicode:unicode_binary().

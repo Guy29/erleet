@@ -1,4 +1,4 @@
--module(p9).
+-module(p0009).
 -export([is_palindrome/1]).
 
 -spec is_palindrome(X :: integer()) -> boolean().

@@ -1,4 +1,4 @@
--module(p8).
+-module(p0008).
 -export([my_atoi/1]).
 
 -spec my_atoi(S :: unicode:unicode_binary()) -> integer().

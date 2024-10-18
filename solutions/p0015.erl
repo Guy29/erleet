@@ -1,4 +1,4 @@
--module(p15).
+-module(p0015).
 -export([three_sum/1]).
 
 -spec three_sum(Nums :: [integer()]) -> [[integer()]].

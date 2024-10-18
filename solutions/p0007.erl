@@ -1,4 +1,4 @@
--module(p7).
+-module(p0007).
 -export([reverse/1]).
 
 -spec reverse(X :: integer()) -> integer().

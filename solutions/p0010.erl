@@ -1,4 +1,4 @@
--module(p10).
+-module(p0010).
 -export([is_match/2]).
 
 -define(ALL_CHARS, lists:seq($a,$z)).

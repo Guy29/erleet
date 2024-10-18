@@ -1,4 +1,4 @@
--module(p4).
+-module(p0004).
 -export([find_median_sorted_arrays/2]).
 
 -spec find_median_sorted_arrays(Nums1 :: [integer()], Nums2 :: [integer()]) -> float().

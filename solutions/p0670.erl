@@ -1,4 +1,4 @@
--module(p670).
+-module(p0670).
 -export([maximum_swap/1]).
 
 -spec maximum_swap(Num :: integer()) -> integer().

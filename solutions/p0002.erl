@@ -1,4 +1,4 @@
--module(p2).
+-module(p0002).
 -export([add_two_numbers/2]).
 
 -record(list_node, {val = 0 :: integer(), next = null :: 'null' | #list_node{}}).

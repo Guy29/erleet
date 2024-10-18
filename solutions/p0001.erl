@@ -1,4 +1,4 @@
--module(p1).
+-module(p0001).
 -export([two_sum/2]).
 
 -spec two_sum(Nums :: [integer()], Target :: integer()) -> [integer()].

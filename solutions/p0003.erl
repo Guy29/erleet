@@ -1,4 +1,4 @@
--module(p3).
+-module(p0003).
 -export([length_of_longest_substring/1]).
 
 -spec length_of_longest_substring(S :: unicode:unicode_binary()) -> integer().

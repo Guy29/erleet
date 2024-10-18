@@ -1,4 +1,4 @@
--module(p204).
+-module(p0204).
 -export([count_primes/1]).
 
 -spec count_primes(N :: integer()) -> integer().
