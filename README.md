@@ -1,21 +1,5 @@
 My solutions to LeetCode problems, implemented in Erlang.
 
-<style>
-  .link {
-    color: black;
-    text-decoration: none;
-    width: 3em;
-    height: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0.5px dotted;
-  }
-  .hard { background-color: #ff5050; }
-  .medium { background-color: #FFA550; }
-  .easy { background-color: #60b060; }
-</style>
-
 <div style="display: flex; flex-wrap: wrap">
   <a href="https://github.com/Guy29/erleet/blob/main/solutions/p0001.erl" style="color: black; text-decoration: none; width: 3em; height: 2em; display: flex; justify-content: center; align-items: center; border: 0.5px dotted; background-color: #60b060;">1</a>
   <a href="https://github.com/Guy29/erleet/blob/main/solutions/p0002.erl" class="medium link">2</a>
